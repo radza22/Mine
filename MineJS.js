@@ -41,7 +41,7 @@ function kalkulacija(Karta,broj) {
                     }
                     Karta[j].dugme.innerText = Karta[j].brojMinaOkoPolja;
                     
-                    //indicator izlaza iz petlje
+                    //indicator izlaza iz petlje.....
                 }
         }
     }
