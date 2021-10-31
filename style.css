@@ -1,0 +1,31 @@
+body {
+    padding: 20px;
+  }
+  button {
+    margin-top: 0px;
+    line-height: 0px;
+    font-weight: bold;
+    padding: none;
+    background: salmon;
+    border: 1px solid #ccc; 
+    height: 50px;
+    width: 50px;
+  }
+  button:hover {
+    background: lightsalmon;
+  }
+  header {
+    background: #f4f4f4;
+    padding: 1rem;
+    text-align: center;
+  }
+  section {
+      text-align: center;
+  }
+  #my-form input[type='text'] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
