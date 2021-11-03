@@ -20,31 +20,33 @@ function kalkulacija(Karta,broj) {
     Karta[broj].dugme.innerText = Karta[broj].brojMinaOkoPolja;
     let indicator = true;
     if(Karta[broj].brojMinaOkoPolja === 0)
-    while(indicator)
     {
-        indicator = false;
+    const nizNula = new Array (Karta[broj]);
+    while(nizNula.length) // Gleda da li za pratecom nulom ima ostalih nula i otvara polja okolo.......
+    {
         for(let j = 0; j < 10 * 10; j++)
         {
-            if(((Karta[j].xOsa === Karta[broj].xOsa + 1) && (Karta[j].yOsa === Karta[broj].yOsa + 1)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa) && (Karta[j].yOsa === Karta[broj].yOsa + 1)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa - 1) && (Karta[j].yOsa === Karta[broj].yOsa + 1)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa + 1) && (Karta[j].yOsa === Karta[broj].yOsa)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa - 1) && (Karta[j].yOsa === Karta[broj].yOsa)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa - 1) && (Karta[j].yOsa === Karta[broj].yOsa - 1)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa) && (Karta[j].yOsa === Karta[broj].yOsa - 1)) ||
-                ((Karta[j].xOsa === Karta[broj].xOsa + 1) && (Karta[j].yOsa === Karta[broj].yOsa - 1)))
+            if(((Karta[j].xOsa === nizNula[0].xOsa + 1) && (Karta[j].yOsa === nizNula[0].yOsa + 1)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa) && (Karta[j].yOsa === nizNula[0].yOsa + 1)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa - 1) && (Karta[j].yOsa === nizNula[0].yOsa + 1)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa + 1) && (Karta[j].yOsa === nizNula[0].yOsa)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa - 1) && (Karta[j].yOsa === nizNula[0].yOsa)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa - 1) && (Karta[j].yOsa === nizNula[0].yOsa - 1)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa) && (Karta[j].yOsa === nizNula[0].yOsa - 1)) ||
+                ((Karta[j].xOsa === nizNula[0].xOsa + 1) && (Karta[j].yOsa === nizNula[0].yOsa - 1)))
                 {
-                    if(Karta[j].dugme.innerText.charAt(0) === '[')
+                    if(Karta[j].dugme.innerText.charAt(0) === '[' && nizNula[0].brojMinaOkoPolja === 0)
                     {
-                    indicator = true;
-                    console.log(Karta[j].dugme.innerText.charAt(0));
-                    }
+                    console.log(Karta[j].dugme.innerText.charAt(0)); //pregled
+                    nizNula.push(Karta[j]);
                     Karta[j].dugme.innerText = Karta[j].brojMinaOkoPolja;
-                    
-                    //indicator izlaza iz petlje.....
+                    }
                 }
         }
+        nizNula.shift(0);
+        console.log(nizNula);//pregled
     }
+}
 }
 //Incijalizacija
 const kartaElement = document.querySelector('#karta');
@@ -61,7 +63,7 @@ for(let i = 0; i < 10; i++) {
     kartaElement.appendChild(document.createElement('br'));
 }
 //Raspored broja mina
-let brojMina = 7;
+let brojMina = 9;
 for(let i = 0; i < brojMina; i++) {
         let slucajni = getRandomInt(100);
         if(!Karta[slucajni].getMinaState())
