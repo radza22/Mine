@@ -106,10 +106,8 @@ function getRandomInt(max) {
 -------------------------------------------
 */
 const kartaElement = document.querySelector('#karta');
-const InstancaKarte = new Karta(10,10,new Array());
-inicijalizacija(InstancaKarte,9);
-console.log(InstancaKarte);
-
+const dugmeStart = document.querySelector('#kreni');
+let InstancaKarte = null;
 /*
 -------------------------------------------
 -------------------------------------------
@@ -117,8 +115,25 @@ console.log(InstancaKarte);
 -------------------------------------------
 -------------------------------------------
 */
-addEventListener('click', (e) => {
-    e.preventDefault();
+dugmeStart.addEventListener('click', (e) => {
+    //Ako je vec ucitana igra brise dugmice
+    while (kartaElement.firstChild) {
+        kartaElement.removeChild(kartaElement.lastChild);
+    }
+    //Vuce podatke iz polja i kreira nova polje
+    let xOsa = document.getElementById('xOsa').value;
+    let yOsa = document.getElementById('yOsa').value;
+    InstancaKarte = new Karta(xOsa,yOsa,new Array());
+    inicijalizacija(InstancaKarte,9);
+});
+kartaElement.addEventListener('click', (e) => {
+    const jestDugme = e.target.nodeName === 'BUTTON';
+    if (!jestDugme) {
+    return;
+    }
+    const provjeraJeLiDugme = e.target.nodeName === 'BUTTON';
+    if(!provjeraJeLiDugme)
+    return;
     if(InstancaKarte.polje[e.target.id].getMinaState())
         InstancaKarte.polje[e.target.id].dugme.innerText = "\uD83D\uDCA3"; //moze isto i ovaj format code iz hex u U/ "\u{1f600}"
     else
@@ -135,7 +150,7 @@ function kalkulacija(InstancaKarte,broj) {
     const nizNula = new Array (InstancaKarte.polje[broj]);
     while(nizNula.length) // Gleda da li za pratecom nulom ima ostalih nula i otvara polja okolo.......
     {
-        for(let j = 0; j < 10 * 10; j++)
+        for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
         {
             if(((InstancaKarte.polje[j].xOsa === nizNula[0].xOsa + 1) && (InstancaKarte.polje[j].yOsa === nizNula[0].yOsa + 1)) ||
                 ((InstancaKarte.polje[j].xOsa === nizNula[0].xOsa) && (InstancaKarte.polje[j].yOsa === nizNula[0].yOsa + 1)) ||
@@ -159,13 +174,13 @@ function kalkulacija(InstancaKarte,broj) {
     }
 }
 let brojiNepoznataPolja = 0;
-for(let j = 0; j < 10 * 10; j++)
+for(let j = 0; j < InstancaKarte.brojPoljaNaKarti; j++)
 if(InstancaKarte.polje[j].dugme.innerText.charAt(0) === '[')
     brojiNepoznataPolja++;
 if(brojiNepoznataPolja === InstancaKarte.brojMinaNaKarti)
 {
     console.log("POBJEDA!!!!");
-    for(let j = 0; j < 10 * 10; j++)
+    for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
     {
         InstancaKarte.polje[j].dugme.disabled = true;
     }

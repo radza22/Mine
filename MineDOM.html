@@ -1,31 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Minice</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <Header>
-        <h1>Minice</h1>
-    </Header>
-    <section class="container">
-    <form id="my-form">
-        <h1>Dimenzije mape (maximalno 20*20)</h1>
-        <div class="msg"></div>
-        <div>
-          <label>X Osa</label>
-          <input type="text" id="xOsa">
-        </div>
-        <div>
-          <label>Y Osa</label>
-          <input type="text" id="yOsa">
-        </div>
-        <input class="btn" type="submit" value="Submit">
-    </form>
-    <ul id="karta"></ul>
-    </section>
-    <script src="MineJS.js"></script>
-</body>
+<html>
+  <head>
+      <title>Minice</title>
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      <Header>
+          <h1>Minice</h1>
+      </Header>
+        <div class="container">
+          <section id="forma">
+          <form id="my-form">
+              <p>Unesi dimenzije mape (maximalno 20*20):<br></p>
+              <div class="msg"></div>
+              <div>
+                <label>X Osa</label>
+                <input type="text" id="xOsa">
+              </div>
+              <div>
+                <label>Y Osa</label>
+                <input type="text" id="yOsa">
+              </div>
+              <p> Izaberi tezinu: </p>
+              <div>
+                <input type="radio" id="easy" name="Tezina">
+                <label for="easy">Easy</label>
+              </div>
+              <div>
+                <input type="radio" id="medium" name="Tezina">
+                <label for="medium">Medium</label>
+              </div>
+              <div>
+                <input type="radio" id="hard" name="Tezina">
+                <label for="hard">Hard</label>
+              </div>
+              <input type="button" id="kreni" value="kreni">
+          </form>
+          </section>
+          <section id="karta">
+            </section>
+          </div>
+          <footer>
+
+          </footer>
+      <script src="MineJS1.js"></script>
+  </body>
+</html>

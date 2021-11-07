@@ -1,5 +1,5 @@
 body {
-    padding: 20px;
+  padding: none;
   }
   button {
     margin-top: 0px;
@@ -19,13 +19,25 @@ body {
     padding: 1rem;
     text-align: center;
   }
-  section {
-      text-align: center;
+  p{
+    text-align: center;
+  }
+  #forma {
+    float:left;
+    width:15%;
+    padding:0 10px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  #karta {
+    float:right;
+    width:85%;
+    padding:0 10px;
+    box-sizing: border-box;
   }
   #my-form input[type='text'] {
-    width: 100%;
     padding: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
