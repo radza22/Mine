@@ -39,12 +39,12 @@ function Karta(duzinaXOse, duzinaYOse, polje){
 -------------------------------------------
 -------------------------------------------
 */
-function inicijalizacija(){
+function inicijalizacija(InstancaKarte,radioTezina){
     //incijalizacija dugmcia
 let z=0;
-for(let i = 0; i < InstancaKarte.duzinaXOse; i++) 
+for(let i = 0; i < InstancaKarte.duzinaYOse; i++) 
 {
-    for(let j = 0; j < InstancaKarte.duzinaYOse; j++)
+    for(let j = 0; j < InstancaKarte.duzinaXOse; j++)
     {
         InstancaKarte.dodajPolje(i,j);
         InstancaKarte.polje[z].dugme.appendChild(document.createTextNode(`[${InstancaKarte.polje[z].xOsa},${InstancaKarte.polje[z].yOsa}]`));
@@ -55,7 +55,18 @@ for(let i = 0; i < InstancaKarte.duzinaXOse; i++)
     kartaElement.appendChild(document.createElement('br'));
 }
 //Raspored broja mina
-InstancaKarte.brojMinaNaKarti = 9;
+switch(radioTezina)
+{
+    case 'easy':
+        InstancaKarte.brojMinaNaKarti = Math.floor(InstancaKarte.brojPoljaNaKarti()*0.1);
+        break;
+      case 'medium':
+        InstancaKarte.brojMinaNaKarti = Math.floor(InstancaKarte.brojPoljaNaKarti()*0.15);
+        break;
+    case 'hard':
+        InstancaKarte.brojMinaNaKarti = Math.floor(InstancaKarte.brojPoljaNaKarti()*0.2);
+        break;
+}
 for(let i = 0; i < InstancaKarte.brojMinaNaKarti; i++) {
         let slucajni = getRandomInt(InstancaKarte.brojPoljaNaKarti());
         if(!InstancaKarte.polje[slucajni].mina)
@@ -97,7 +108,13 @@ for(let i = 0; i < InstancaKarte.brojPoljaNaKarti(); i++) {
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
-
+function iskljuciDugmice(InstancaKarte)
+{
+    for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
+    {
+        InstancaKarte.polje[j].dugme.disabled = true;
+    }
+}
 /*
 -------------------------------------------
 -------------------------------------------
@@ -123,12 +140,14 @@ dugmeStart.addEventListener('click', (e) => {
     //Vuce podatke iz polja i kreira nova polje
     let xOsa = parseInt(document.getElementById('xOsa').value);
     let yOsa = parseInt(document.getElementById('yOsa').value);
+    let radioTezina = document.querySelector('input[name="Tezina"]:checked').value;
+    console.log(radioTezina);
     if(isNaN(xOsa) || isNaN(yOsa))
     {
         return alert("Unesi tacnu x ili y osu!");
     }
     InstancaKarte = new Karta(xOsa,yOsa,new Array());
-    inicijalizacija(InstancaKarte,9);
+    inicijalizacija(InstancaKarte,radioTezina);
 });
 kartaElement.addEventListener('click', (e) => {
     const provjeraJeLiDugme = e.target.nodeName === 'BUTTON';
@@ -138,6 +157,7 @@ kartaElement.addEventListener('click', (e) => {
     {
         InstancaKarte.polje[e.target.id].dugme.style.backgroundColor = 'red';
         InstancaKarte.polje[e.target.id].dugme.innerText = "\uD83D\uDCA3"; //moze isto i ovaj format code iz hex u U/ "\u{1f600}"
+        iskljuciDugmice(InstancaKarte);
     }
     else
     {
@@ -177,18 +197,15 @@ function kalkulacija(InstancaKarte,broj) {
         nizNula.shift(0);
         console.log(nizNula);//pregled
     }
-}
+    }
 let brojiNepoznataPolja = 0;
-for(let j = 0; j < InstancaKarte.brojPoljaNaKarti; j++)
+for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
 if(InstancaKarte.polje[j].dugme.innerText.charAt(0) === '[')
     brojiNepoznataPolja++;
 if(brojiNepoznataPolja === InstancaKarte.brojMinaNaKarti)
 {
     console.log("POBJEDA!!!!");
-    for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
-    {
-        InstancaKarte.polje[j].dugme.disabled = true;
-    }
+    iskljuciDugmice(InstancaKarte);
 }
 }
 
