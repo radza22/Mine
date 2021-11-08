@@ -123,6 +123,8 @@ dugmeStart.addEventListener('click', (e) => {
     //Vuce podatke iz polja i kreira nova polje
     let xOsa = document.getElementById('xOsa').value;
     let yOsa = document.getElementById('yOsa').value;
+    if(isNan(xOsa) || isNan(yOsa))
+    return;
     InstancaKarte = new Karta(xOsa,yOsa,new Array());
     inicijalizacija(InstancaKarte,9);
 });
