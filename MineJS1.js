@@ -127,15 +127,14 @@ dugmeStart.addEventListener('click', (e) => {
     inicijalizacija(InstancaKarte,9);
 });
 kartaElement.addEventListener('click', (e) => {
-    const jestDugme = e.target.nodeName === 'BUTTON';
-    if (!jestDugme) {
-    return;
-    }
     const provjeraJeLiDugme = e.target.nodeName === 'BUTTON';
     if(!provjeraJeLiDugme)
     return;
     if(InstancaKarte.polje[e.target.id].getMinaState())
+    {
+        InstancaKarte.polje[e.target.id].dugme.style.backgroundColor = 'red';
         InstancaKarte.polje[e.target.id].dugme.innerText = "\uD83D\uDCA3"; //moze isto i ovaj format code iz hex u U/ "\u{1f600}"
+    }
     else
     {
         kalkulacija(InstancaKarte,e.target.id);
@@ -145,6 +144,7 @@ kartaElement.addEventListener('click', (e) => {
 
 function kalkulacija(InstancaKarte,broj) {
     InstancaKarte.polje[broj].dugme.innerText = InstancaKarte.polje[broj].brojMinaOkoPolja;
+    InstancaKarte.polje[broj].dugme.style.backgroundColor = 'white';
     if(InstancaKarte.polje[broj].brojMinaOkoPolja === 0)
     {
     const nizNula = new Array (InstancaKarte.polje[broj]);
@@ -166,6 +166,7 @@ function kalkulacija(InstancaKarte,broj) {
                     console.log(InstancaKarte.polje[j].dugme.innerText.charAt(0)); //pregled
                     nizNula.push(InstancaKarte.polje[j]);
                     InstancaKarte.polje[j].dugme.innerText = InstancaKarte.polje[j].brojMinaOkoPolja;
+                    InstancaKarte.polje[j].dugme.style.backgroundColor = 'white';
                     }
                 }
         }

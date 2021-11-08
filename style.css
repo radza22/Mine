@@ -6,13 +6,13 @@ body {
     line-height: 0px;
     font-weight: bold;
     padding: none;
-    background: salmon;
+    background: rgb(140, 142, 143);
     border: 1px solid #ccc; 
     height: 50px;
     width: 50px;
   }
   button:hover {
-    background: lightsalmon;
+    background: rgb(237, 240, 80);
   }
   header {
     background: #f4f4f4;
