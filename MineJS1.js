@@ -121,10 +121,12 @@ dugmeStart.addEventListener('click', (e) => {
         kartaElement.removeChild(kartaElement.lastChild);
     }
     //Vuce podatke iz polja i kreira nova polje
-    let xOsa = document.getElementById('xOsa').value;
-    let yOsa = document.getElementById('yOsa').value;
-    if(isNan(xOsa) || isNan(yOsa))
-    return;
+    let xOsa = parseInt(document.getElementById('xOsa').value);
+    let yOsa = parseInt(document.getElementById('yOsa').value);
+    if(isNaN(xOsa) || isNaN(yOsa))
+    {
+        return alert("Unesi tacnu x ili y osu!");
+    }
     InstancaKarte = new Karta(xOsa,yOsa,new Array());
     inicijalizacija(InstancaKarte,9);
 });
