@@ -112,6 +112,8 @@ function iskljuciDugmice(InstancaKarte)
 {
     for(let j = 0; j < InstancaKarte.brojPoljaNaKarti(); j++)
     {
+        if(InstancaKarte.polje[j].getMinaState())
+        InstancaKarte.polje[j].dugme.innerText = "\uD83D\uDCA3";
         InstancaKarte.polje[j].dugme.disabled = true;
     }
 }
@@ -141,10 +143,9 @@ dugmeStart.addEventListener('click', (e) => {
     let xOsa = parseInt(document.getElementById('xOsa').value);
     let yOsa = parseInt(document.getElementById('yOsa').value);
     let radioTezina = document.querySelector('input[name="Tezina"]:checked').value;
-    console.log(radioTezina);
-    if(isNaN(xOsa) || isNaN(yOsa))
+    if(isNaN(xOsa) || isNaN(yOsa) || xOsa>20 || yOsa>20 || xOsa<5 || yOsa<5)
     {
-        return alert("Unesi tacnu x ili y osu!");
+        return alert("Unesi tacne dizmencije!");
     }
     InstancaKarte = new Karta(xOsa,yOsa,new Array());
     inicijalizacija(InstancaKarte,radioTezina);
@@ -158,6 +159,7 @@ kartaElement.addEventListener('click', (e) => {
         InstancaKarte.polje[e.target.id].dugme.style.backgroundColor = 'red';
         InstancaKarte.polje[e.target.id].dugme.innerText = "\uD83D\uDCA3"; //moze isto i ovaj format code iz hex u U/ "\u{1f600}"
         iskljuciDugmice(InstancaKarte);
+        alert("BOOOOOOM nagazio si na MINU!!!!");
     }
     else
     {
@@ -204,7 +206,7 @@ if(InstancaKarte.polje[j].dugme.innerText.charAt(0) === '[')
     brojiNepoznataPolja++;
 if(brojiNepoznataPolja === InstancaKarte.brojMinaNaKarti)
 {
-    console.log("POBJEDA!!!!");
+    alert("POBJEDA!!!!");
     iskljuciDugmice(InstancaKarte);
 }
 }
